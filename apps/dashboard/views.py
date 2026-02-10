@@ -2,6 +2,8 @@ from datetime import date, timedelta, datetime
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from apps.currency.utils import get_conversion_rate
+from apps.wallets.models import Wallet
 
 
 @login_required
@@ -32,8 +34,7 @@ def dashboard_view(request):
         except ValueError:
             start_date = end_date = None
 
-    from apps.currency.utils import get_conversion_rate
-    from apps.wallets.models import Wallet
+ 
 
     wallets = Wallet.objects.filter(user=request.user)
     balance = sum(
