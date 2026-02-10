@@ -16,7 +16,7 @@
     <input type="hidden" name="next" value="{{ request.get_full_path }}">
 </form>
 
-<!-- Valyuta dropdown -->
+
 <form method="get" id="currencyForm">
     <label for="currency">{% trans "Currency" %}:</label>
     <select name="currency" id="currency" onchange="document.getElementById('currencyForm').submit();">
@@ -60,7 +60,7 @@
 <!--    <li><a href="{% url 'category_list' %}">{% trans "Categories" %}</a></li>-->
 <!--</ul>-->
 
-<!-- Kichik chartlar uchun container -->
+
 <style>
 .chart-container {
     width: 250px;
@@ -81,7 +81,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// Income chart
+
 new Chart(document.getElementById('incomeCategoryChart'), {
     type: 'pie',
     data: {
@@ -109,7 +109,7 @@ new Chart(document.getElementById('incomeCategoryChart'), {
     }
 });
 
-// Expense chart
+
 new Chart(document.getElementById('expenseCategoryChart'), {
     type: 'pie',
     data: {
