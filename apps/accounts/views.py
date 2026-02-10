@@ -1,9 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import UserLoginForm, PhoneVerificationForm, SignupForm
-from .models import User
-from .utils import send_phone_code
-from .models import PhoneVerification
+from .forms import UserLoginForm, PhoneVerificationForm, SignupForm, PhoneForm, PhoneVerificationForm, CompleteSignupForm
+from .models import User, PhoneVerification
+from .utils import send_phone_code 
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 
@@ -55,20 +54,6 @@ def verify_phone_view(request):
 
     return render(request, 'accounts/verify_phone.html', {'form': form})
 
-
-#
-# def signup_view(request):
-#     if request.method == 'POST':
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('login')
-#     else:
-#         form = SignupForm()
-#
-#     return render(request, 'accounts/signup.html', {'form': form})
-
-from .forms import PhoneForm, PhoneVerificationForm, CompleteSignupForm
 
 def signup_step1(request):
     if request.method == 'POST':
