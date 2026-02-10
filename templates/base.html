@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,11 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><a href="{% url 'wallet_list' %}">{% trans "Wallets" %}</a></li>
+                    <li><a href="{% url 'transaction_income_list' %}">{% trans "Income" %}</a></li>
+                    <li><a href="{% url 'transaction_expense_list' %}">{% trans "Expenses" %}</a></li>
+                    <li><a href="{% url 'transaction_transfer_list' %}">{% trans "Transfers" %}</a></li>
+                    <li><a href="{% url 'category_list' %}">{% trans "Categories" %}</a></li>
                 {% else %}
 <!--                    <li><a href="{% url 'login' %}">Login</a></li>-->
                 {% endif %}

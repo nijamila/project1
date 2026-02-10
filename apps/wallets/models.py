@@ -23,3 +23,6 @@ class Wallet(models.Model):
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT)
     balance = models.DecimalField(max_digits=20, decimal_places=2, default=0)
 
+    def __str__(self):
+        return self.name
+

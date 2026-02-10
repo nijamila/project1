@@ -32,7 +32,6 @@ def verify_phone_view(request):
     user = request.user
     phone_verif, created = PhoneVerification.objects.get_or_create(user=user)
 
-    # Har safar page ochilganda kod yuborish
     send_phone_code(user)
 
     if request.method == 'POST':
