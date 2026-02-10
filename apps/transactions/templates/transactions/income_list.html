@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Incomes{% endblock %}
+
+{% block content %}
+<h2>Incomes</h2>
+<a href="{% url 'transaction_income_create' %}">Add Income</a>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Wallet</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for income in incomes %}
+        <tr>
+            <td>{{ income.date }}</td>
+            <td>{{ income.wallet.name }}</td>
+            <td>{{ income.category.name }}</td>
+            <td>{{ income.amount }} {{ income.wallet.currency.code }}</td>
+            <td>{{ income.description|default:"-" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No records yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

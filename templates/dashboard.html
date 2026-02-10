@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Welcome" %}, {{ user.first_name }}!</h1>
+
+<form action="{% url 'set_language' %}" method="post" style="margin-bottom:15px;">
+    {% csrf_token %}
+    <select name="language" onchange="this.form.submit()">
+        <option value="uz" {% if LANGUAGE_CODE == 'uz' %}selected{% endif %}>UZ</option>
+        <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>EN</option>
+        <option value="ru" {% if LANGUAGE_CODE == 'ru' %}selected{% endif %}>RU</option>
+    </select>
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+</form>
+
+<!-- Valyuta dropdown -->
+<form method="get" id="currencyForm">
+    <label for="currency">{% trans "Currency" %}:</label>
+    <select name="currency" id="currency" onchange="document.getElementById('currencyForm').submit();">
+        <option value="UZS" {% if currency == "UZS" %}selected{% endif %}>{% trans "So’m" %}</option>
+        <option value="USD" {% if currency == "USD" %}selected{% endif %}>{% trans "Dollar" %}</option>
+        <option value="EUR" {% if currency == "EUR" %}selected{% endif %}>{% trans "Euro" %}</option>
+    </select>
+</form>
+
+<!-- Hisobot turi -->
+<form method="get" style="margin-top:15px;">
+    <label>{% trans "Report Type" %}:</label>
+    <select name="report_type" onchange="this.form.submit()">
+        <option value="all" {% if report_type == 'all' %}selected{% endif %}>{% trans "All Time" %}</option>
+        <option value="daily" {% if report_type == 'daily' %}selected{% endif %}>{% trans "Daily" %}</option>
+        <option value="weekly" {% if report_type == 'weekly' %}selected{% endif %}>{% trans "Weekly" %}</option>
+        <option value="monthly" {% if report_type == 'monthly' %}selected{% endif %}>{% trans "Monthly" %}</option>
+        <option value="custom" {% if report_type == 'custom' %}selected{% endif %}>{% trans "Custom" %}</option>
+    </select>
+
+    {% if report_type == 'custom' %}
+        <label>{% trans "From" %}:</label>
+        <input type="date" name="start_date" value="{{ start_date }}">
+        <label>{% trans "To" %}:</label>
+        <input type="date" name="end_date" value="{{ end_date }}">
+        <button type="submit">{% trans "Filter" %}</button>
+    {% endif %}
+</form>
+
+<div class="totals">
+    <p>{% trans "Balance" %}: {{ balance|floatformat:2 }} {{ currency }}</p>
+    <p>{% trans "Total Income" %}: {{ total_income|floatformat:2 }} {{ currency }}</p>
+    <p>{% trans "Total Expense" %}: {{ total_expense|floatformat:2 }} {{ currency }}</p>
+</div>
+
+<ul class="dashboard-links">
+    <li><a href="{% url 'wallet_list' %}">{% trans "Wallets" %}</a></li>
+    <li><a href="{% url 'transaction_income_list' %}">{% trans "Income" %}</a></li>
+    <li><a href="{% url 'transaction_expense_list' %}">{% trans "Expenses" %}</a></li>
+    <li><a href="{% url 'transaction_transfer_list' %}">{% trans "Transfers" %}</a></li>
+    <li><a href="{% url 'category_list' %}">{% trans "Categories" %}</a></li>
+</ul>
+
+<!-- Kichik chartlar uchun container -->
+<style>
+.chart-container {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 25px;
+}
+</style>
+
+<h2>{% trans "Income by Category" %}</h2>
+<div class="chart-container">
+    <canvas id="incomeCategoryChart"></canvas>
+</div>
+
+<h2>{% trans "Expense by Category" %}</h2>
+<div class="chart-container">
+    <canvas id="expenseCategoryChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Income chart
+new Chart(document.getElementById('incomeCategoryChart'), {
+    type: 'pie',
+    data: {
+        labels: {{ chart_income_labels|safe }},
+        datasets: [{
+            label: '{% trans "Income" %} ({{ currency }})',
+            data: {{ chart_income_values|safe }},
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(201, 203, 207, 0.6)',
+                'rgba(255, 205, 86, 0.6)'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+
+// Expense chart
+new Chart(document.getElementById('expenseCategoryChart'), {
+    type: 'pie',
+    data: {
+        labels: {{ chart_expense_labels|safe }},
+        datasets: [{
+            label: '{% trans "Expense" %} ({{ currency }})',
+            data: {{ chart_expense_values|safe }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(255, 159, 64, 0.6)',
+                'rgba(255, 205, 86, 0.6)',
+                'rgba(201, 203, 207, 0.6)',
+                'rgba(54, 162, 235, 0.6)'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Your Rates{% endblock %}
+{% block content %}
+<h2>Your Currency Rates</h2>
+<a href="{% url 'user_currency_rate_create' %}">Add Rate</a>
+<table>
+<tr><th>From</th><th>To</th><th>Rate</th></tr>
+{% for r in rates %}
+<tr>
+<td>{{ r.from_currency.code }}</td>
+<td>{{ r.to_currency.code }}</td>
+<td>{{ r.rate }}</td>
+</tr>
+{% empty %}
+<tr><td colspan="3">No rates yet.</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

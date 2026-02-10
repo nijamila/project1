@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Wallet Form{% endblock %}
+
+{% block content %}
+<h2>Create / Edit Wallet</h2>
+<form method="post">
+  {% csrf_token %}
+  <p>
+    <label for="id_name">Name:</label>
+    {{ form.name }}
+  </p>
+  <p>
+    <label for="id_wallet_type">Wallet Type:</label>
+    {{ form.wallet_type }}
+  </p>
+  <p>
+    <label for="id_card_type">Card Type (if card):</label>
+    {{ form.card_type }}
+  </p>
+  <p>
+    <label for="id_currency">Currency:</label>
+    {{ form.currency }}
+  </p>
+  <p>
+    <label for="id_balance">Balance:</label>
+    {{ form.balance }}
+  </p>
+
+  <button type="submit">Save</button>
+</form>
+
+{% if form.errors %}
+  <ul style="color:red;">
+    {% for field in form %}
+      {% for error in field.errors %}
+        <li>{{ field.label }}: {{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}

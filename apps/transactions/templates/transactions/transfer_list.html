@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Transfers{% endblock %}
+
+{% block content %}
+<h2>Transfers</h2>
+<a href="{% url 'transaction_transfer_create' %}" class="button-link">Add Transfer</a>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>From Wallet</th>
+            <th>To Wallet</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transfer in transfers %}
+        <tr>
+            <td>{{ transfer.date }}</td>
+            <td>{{ transfer.from_wallet.name }}</td>
+            <td>{{ transfer.to_wallet.name }}</td>
+            <td>{{ transfer.amount }} {{ transfer.from_wallet.currency.code }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No transfers yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Wallets{% endblock %}
+
+{% block content %}
+<h2>Your Wallets</h2>
+<a href="{% url 'wallet_create' %}">Add Wallet</a>
+<ul>
+  {% for wallet in wallets %}
+    <li>
+      {{ wallet.name }} - {{ wallet.balance }} {{ wallet.currency.code }}
+      <a href="{% url 'wallet_update' wallet.pk %}">Edit</a>
+      <a href="{% url 'wallet_delete' wallet.pk %}">Delete</a>
+    </li>
+  {% empty %}
+    <li>No wallets yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

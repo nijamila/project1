@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Currencies{% endblock %}
+{% block content %}
+<h2>Currencies</h2>
+<a href="{% url 'currency_create' %}">Add Currency</a>
+<ul>
+{% for c in currencies %}
+    <li>{{ c.code }} - {{ c.name }}</li>
+{% empty %}
+    <li>No currencies yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}

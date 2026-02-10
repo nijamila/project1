@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-box">
+        <h2 class="auth-title">Verify phone</h2>
+        <p class="auth-subtitle">We sent a verification code to your phone</p>
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.code.label_tag }}
+                {{ form.code }}
+                {{ form.code.errors }}
+            </div>
+
+            <button type="submit" class="auth-btn">Verify</button>
+        </form>
+
+        <p class="auth-subtitle" style="margin-top: 20px;">
+            Didn’t get the code? Please wait a moment.
+        </p>
+    </div>
+</section>
+{% endblock %}

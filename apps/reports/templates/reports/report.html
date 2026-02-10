@@ -1,0 +1,34 @@
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Sana</th>
+        <th>Hisob</th>
+        <th>Turi</th>
+        <th>Kategoriya</th>
+        <th>Summa</th>
+        <th>Description</th>
+        <th>Photo</th>
+    </tr>
+    {% for t in transactions %}
+    <tr>
+        <td>{{ t.date }}</td>
+        <td>{{ t.wallet.name }}</td>
+        <td>
+            {% if t.__class__.__name__ == 'Income' %}
+                Kirim
+            {% else %}
+                Chiqim
+            {% endif %}
+        </td>
+        <td>{{ t.category.name }}</td>
+        <td>{{ t.amount }}</td>
+        <td>{{ t.description }}</td>
+        <td>
+            {% if t.photo %}
+                <img src="{{ t.photo.url }}" width="50">
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
