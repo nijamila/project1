@@ -8,15 +8,10 @@ from django.conf.urls.i18n import i18n_patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-
-    # Tilni o‘zgartirish view'i uchun
     path('i18n/', include('django.conf.urls.i18n')),
-
-    # Accounts URL’lari
     path('accounts/', include('apps.accounts.urls')),
 ]
 
-# Dashboard va boshqa tilga bog‘liq URLlar
 urlpatterns += i18n_patterns(
     path('', login_view, name='login'),
     path('dashboard/', dashboard_view, name='dashboard'),

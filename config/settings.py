@@ -148,7 +148,7 @@ TIME_ZONE = 'UTC'
 USE_TZ = True
 
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SECURE = False  # development uchun, production’da True qilasiz
+SESSION_COOKIE_SECURE = False
 
 
 

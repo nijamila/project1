@@ -17,7 +17,6 @@ class BaseTransaction(models.Model):
     class Meta:
         abstract = True
 
-
 class Transfer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     from_wallet = models.ForeignKey(Wallet, on_delete=models.PROTECT, related_name='outgoing')

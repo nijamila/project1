@@ -5,12 +5,6 @@ from datetime import date
 from apps.currency.utils import get_conversion_rate
 
 def get_category_summary(user, currency_code='UZS', start_date: date = None, end_date: date = None):
-    """
-    Har bir category bo'yicha total income va expense summalarini qaytaradi.
-    Valyuta konvert qilinadi.
-    start_date va end_date berilsa, shu oraliqda filter qiladi.
-    """
-    # Income
     income_summary = defaultdict(Decimal)
     incomes = Income.objects.filter(user=user)
     if start_date and end_date:
@@ -19,7 +13,6 @@ def get_category_summary(user, currency_code='UZS', start_date: date = None, end
         rate = get_conversion_rate(inc.wallet.currency.code, currency_code)
         income_summary[inc.category.name] += Decimal(inc.amount) * Decimal(rate)
 
-    # Expense
     expense_summary = defaultdict(Decimal)
     expenses = Expense.objects.filter(user=user)
     if start_date and end_date:

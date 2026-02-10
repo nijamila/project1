@@ -8,7 +8,6 @@ from django.shortcuts import render
 def dashboard_view(request):
     currency_code = request.GET.get('currency', 'UZS')
 
-    # Hisobot turi va sanalar
     report_type = request.GET.get('report_type', 'all')
     start_date_str = request.GET.get('start_date')
     end_date_str = request.GET.get('end_date')
@@ -33,7 +32,6 @@ def dashboard_view(request):
         except ValueError:
             start_date = end_date = None
 
-    # Walletlar balansi
     from apps.currency.utils import get_conversion_rate
     from apps.wallets.models import Wallet
 
@@ -43,7 +41,6 @@ def dashboard_view(request):
         for w in wallets
     )
 
-    # Category summary
     from apps.reports.utils import get_category_summary
     category_data = get_category_summary(request.user, currency_code, start_date, end_date)
 
