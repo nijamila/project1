@@ -19,7 +19,7 @@
         }
 
         header {
-            background: #111827;
+            background-color: #111827;
             padding: 0 40px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
@@ -28,7 +28,26 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 60px;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+        }
+
+        .logo span {
+            color: #f9fafb;
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 1px;
         }
 
         nav .nav-left, nav .nav-right {
@@ -52,12 +71,11 @@
             font-weight: 500;
             padding: 6px 10px;
             border-radius: 6px;
-            transition: background 0.2s, opacity 0.2s;
+            transition: 0.2s ease;
         }
 
         nav ul li a:hover {
             background-color: rgba(255,255,255,0.1);
-            opacity: 0.9;
         }
 
         nav .nav-right a {
@@ -65,7 +83,7 @@
             font-weight: 500;
             padding: 6px 12px;
             border-radius: 6px;
-            transition: background 0.2s, opacity 0.2s;
+            transition: background 0.2s ease;
         }
 
         nav .nav-right a:hover {
@@ -100,6 +118,11 @@
 {% block header %}
 <header>
     <nav>
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Finance Manager Logo">
+            <span>FinanceManager</span>
+        </div>
+
         <div class="nav-left">
             <ul>
                 {% if user.is_authenticated %}
@@ -112,6 +135,7 @@
                 {% endif %}
             </ul>
         </div>
+
         <div class="nav-right">
             {% if user.is_authenticated %}
                 <a href="{% url 'logout' %}" style="color:#ef4444;">{% trans "Logout" %}</a>
