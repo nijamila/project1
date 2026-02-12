@@ -3,10 +3,12 @@
 {% block title %}Delete Wallet{% endblock %}
 
 {% block content %}
-<h2>Are you sure you want to delete "{{ wallet.name }}"?</h2>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Yes, delete</button>
-  <a href="{% url 'wallet_list' %}">Cancel</a>
-</form>
+<div style="max-width:600px; margin:50px auto; padding:30px; background:#fff; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center;">
+    <h2 style="color:#111827; margin-bottom:20px;">Are you sure you want to delete "<strong>{{ wallet.name }}</strong>"?</h2>
+    <form method="post" style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+        {% csrf_token %}
+        <button type="submit" style="background-color:#ef4444; color:#fff; padding:10px 25px; border:none; border-radius:6px; font-weight:500; cursor:pointer; transition:0.2s;">Yes, delete</button>
+        <a href="{% url 'wallet_list' %}" style="background-color:#e5e7eb; color:#111827; padding:10px 25px; border-radius:6px; text-decoration:none; font-weight:500; transition:0.2s;">Cancel</a>
+    </form>
+</div>
 {% endblock %}
