@@ -3,6 +3,7 @@ from .models import SupportMessage
 
 @admin.register(SupportMessage)
 class SupportMessageAdmin(admin.ModelAdmin):
-    list_display = ('user', 'is_admin', 'is_read', 'created_at')
-    list_filter = ('is_admin', 'is_read', 'created_at')
-    search_fields = ('user__phone', 'message')
+    list_display = ('user', 'created_at', 'replied_at', 'message', 'reply')
+    readonly_fields = ('user', 'created_at', 'replied_at')
+    search_fields = ('user__username', 'message', 'reply')
+    list_filter = ('created_at',)
