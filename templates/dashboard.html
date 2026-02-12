@@ -59,33 +59,32 @@
         </select>
     </div>
 
-    {% if report_type == 'custom' %}
-    <div class="custom-date-wrapper">
-
-        <div class="report-group">
-            <label>{% trans "From" %}</label>
-            <input type="text"
-                   name="start_date"
-                   placeholder="dd/mm/yyyy"
-                   value="{{ start_date }}"
-                   class="date-input">
-        </div>
-
-        <div class="report-group">
-            <label>{% trans "To" %}</label>
-            <input type="text"
-                   name="end_date"
-                   placeholder="dd/mm/yyyy"
-                   value="{{ end_date }}"
-                   class="date-input">
-        </div>
-
-        <div class="report-group button-group">
-            <button type="submit">Filter</button>
-        </div>
-
+   {% if report_type == 'custom' %}
+<div class="custom-date-wrapper" style="display:flex; gap:15px; flex-wrap:wrap; align-items:flex-end; margin-top:10px;">
+    <div class="report-group" style="display:flex; flex-direction:column;">
+        <label>{% trans "From" %}</label>
+        <input type="date"
+               name="start_date"
+               value="{{ start_date|date:'Y-m-d' }}"
+               class="date-input"
+               style="padding:10px; border-radius:8px; border:1px solid #e5e7eb; min-width:150px;">
     </div>
-    {% endif %}
+
+    <div class="report-group" style="display:flex; flex-direction:column;">
+        <label>{% trans "To" %}</label>
+        <input type="date"
+               name="end_date"
+               value="{{ end_date|date:'Y-m-d' }}"
+               class="date-input"
+               style="padding:10px; border-radius:8px; border:1px solid #e5e7eb; min-width:150px;">
+    </div>
+
+    <div class="report-group button-group" style="display:flex; align-items:flex-end;">
+        <button type="submit" style="padding:10px 18px; border-radius:8px; border:none; background:#3b82f6; color:white; cursor:pointer;">Filter</button>
+    </div>
+</div>
+{% endif %}
+
 
 </form>
 
