@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
     <style>
-        /* Body */
         body {
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -19,107 +18,88 @@
             color: #1e293b;
         }
 
-        /* Header / Navbar */
         header {
-            background-color: #1f2937; /* app top bar bilan uyg‘un rang */
+            background: #2563eb; /* app primary color – professional va soft */
             padding: 0 40px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 70px;
+            height: 64px;
         }
 
-        /* Logo */
-        .logo {
+        .app-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        nav .nav-left, nav .nav-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 20px;
         }
 
-        .logo img {
-            height: 45px;
-            width: 45px;
-            object-fit: contain;
-        }
-
-        .logo span {
-            color: #f9fafb;
-            font-weight: 700;
-            font-size: 22px;
-            letter-spacing: 1px;
-        }
-
-        /* Navbar links */
-        nav .nav-left ul {
+        nav ul {
             list-style: none;
             display: flex;
-            gap: 24px;
+            gap: 22px;
             margin: 0;
             padding: 0;
         }
 
-        nav .nav-left ul li a {
+        nav ul li a {
             text-decoration: none;
-            color: #f9fafb;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: background 0.2s ease, color 0.2s ease;
-        }
-
-        nav .nav-left ul li a:hover {
-            background-color: rgba(255,255,255,0.15);
-        }
-
-        nav .nav-right a {
-            text-decoration: none;
+            color: #ffffff;
+            font-size: 15px;
             font-weight: 500;
             padding: 8px 14px;
             border-radius: 8px;
-            transition: background 0.2s ease;
+            transition: background 0.3s, transform 0.2s;
         }
 
-        nav .nav-right a:hover {
+        nav ul li a:hover {
             background-color: rgba(255,255,255,0.15);
+            transform: translateY(-1px);
         }
 
-        nav .nav-right a.logout {
-            background-color: #ef4444;
-            color: #fff;
+        .nav-right a {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: rgba(255,255,255,0.1);
+            transition: background 0.3s, transform 0.2s;
         }
 
-        nav .nav-right a.logout:hover {
-            background-color: #dc2626;
+        .nav-right a:hover {
+            background-color: rgba(255,255,255,0.25);
+            transform: translateY(-1px);
         }
 
-        /* Main content */
         main {
             max-width: 1200px;
             margin: 40px auto;
-            padding: 0 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
         }
 
-        /* Responsive */
         @media (max-width: 900px) {
             nav {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
             }
-
-            nav .nav-left ul {
+            nav ul {
                 flex-wrap: wrap;
                 gap: 12px;
             }
-
-            nav .nav-right {
-                margin-top: 10px;
-                gap: 12px;
+            main {
+                margin: 20px;
+                padding: 15px;
             }
         }
     </style>
@@ -129,12 +109,8 @@
 {% block header %}
 <header>
     <nav>
-        <div class="logo">
-            <img src="{% static 'images/logo.png' %}" alt="Finance Manager Logo">
-            <span>FinanceManager</span>
-        </div>
-
         <div class="nav-left">
+            <span class="app-name">Finance Manager</span>
             <ul>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
@@ -146,10 +122,9 @@
                 {% endif %}
             </ul>
         </div>
-
         <div class="nav-right">
             {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="logout">{% trans "Logout" %}</a>
+                <a href="{% url 'logout' %}" style="color:#ef4444; font-weight:500;">{% trans "Logout" %}</a>
             {% else %}
                 <a href="{% url 'login' %}">{% trans "Login" %}</a>
                 {% url 'signup_step1' as signup_url %}
