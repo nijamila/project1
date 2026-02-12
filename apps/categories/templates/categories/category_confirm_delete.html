@@ -2,16 +2,24 @@
 {% block title %}Delete Category{% endblock %}
 
 {% block content %}
-<h2>Delete Category</h2>
+<div style="max-width:500px; margin:40px auto; background:#fff; padding:30px 25px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.08); text-align:center;">
+    <h2 style="color:#111827; font-weight:600; margin-bottom:20px;">Delete Category</h2>
 
-<p>
-    Are you sure you want to delete
-    "<strong>{{ category.name }}</strong>"?
-</p>
+    <p style="margin-bottom:25px; font-size:16px; color:#374151;">
+        Are you sure you want to delete
+        "<strong>{{ category.name }}</strong>"?
+    </p>
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, delete</button>
-    <a href="{% url 'category_list' %}">Cancel</a>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" 
+                style="margin-right:10px; padding:10px 20px; background-color:#ef4444; color:#fff; border:none; border-radius:6px; font-weight:500; cursor:pointer; transition:0.2s;">
+            Yes, delete
+        </button>
+        <a href="{% url 'category_list' %}" 
+           style="padding:10px 20px; background:#6b7280; color:#fff; border-radius:6px; text-decoration:none; font-weight:500; transition:0.2s;">
+           Cancel
+        </a>
+    </form>
+</div>
 {% endblock %}
