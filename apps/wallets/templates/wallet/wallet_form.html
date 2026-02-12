@@ -3,43 +3,132 @@
 {% block title %}Wallet Form{% endblock %}
 
 {% block content %}
-<h2>Create / Edit Wallet</h2>
-<form method="post">
-  {% csrf_token %}
-  <p>
-    <label for="id_name">Name:</label>
-    {{ form.name }}
-  </p>
-  <p>
-    <label for="id_wallet_type">Wallet Type:</label>
-    {{ form.wallet_type }}
-  </p>
-  <p>
-    <label for="id_card_type">Card Type (if card):</label>
-    {{ form.card_type }}
-  </p>
-  <p>
-    <label for="id_currency">Currency:</label>
-    {{ form.currency }}
-  </p>
-  <p>
-    <label for="id_balance">Balance:</label>
-    {{ form.balance }}
-  </p>
+<div class="wallet-form-container">
+    <h2>Create / Edit Wallet</h2>
+    <form method="post" class="wallet-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_name">Name</label>
+            {{ form.name }}
+        </div>
 
-  <button type="submit">Save</button>
-</form>
+        <div class="form-group">
+            <label for="id_wallet_type">Wallet Type</label>
+            {{ form.wallet_type }}
+        </div>
 
-{% if form.errors %}
-  <ul style="color:red;">
-    {% for field in form %}
-      {% for error in field.errors %}
-        <li>{{ field.label }}: {{ error }}</li>
-      {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-      <li>{{ error }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+        <div class="form-group">
+            <label for="id_card_type">Card Type (if card)</label>
+            {{ form.card_type }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_currency">Currency</label>
+            {{ form.currency }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_balance">Balance</label>
+            {{ form.balance }}
+        </div>
+
+        <button type="submit" class="btn-save">Save</button>
+
+        {% if form.errors %}
+            <div class="form-errors">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </form>
+</div>
+
+<style>
+.wallet-form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.wallet-form-container h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.wallet-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.wallet-form label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #374151;
+}
+
+.wallet-form input,
+.wallet-form select {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.wallet-form input:focus,
+.wallet-form select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+}
+
+.btn-save {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-save:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.form-errors {
+    margin-top: 15px;
+    color: #ef4444;
+    font-size: 14px;
+}
+
+.form-errors ul {
+    padding-left: 18px;
+}
+
+@media (max-width: 480px) {
+    .wallet-form-container {
+        padding: 20px 15px;
+    }
+}
+</style>
 {% endblock %}
