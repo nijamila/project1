@@ -18,4 +18,6 @@ urlpatterns += i18n_patterns(
     path('transactions/', include('apps.transactions.urls')),
     path('wallets/', include('apps.wallets.urls')),
     path('categories/', include('apps.categories.urls')),
+    path('support/', include('apps.support.urls')),
+
 )
