@@ -10,20 +10,10 @@
 </h1>
 
 
-<div style="
-    background:white;
-    padding:25px;
-    border-radius:18px;
-    box-shadow:0 8px 24px rgba(0,0,0,0.05);
-    margin-bottom:40px;
-">
+<div class="report-card">
 
-    <div style="
-        display:flex;
-        gap:30px;
-        flex-wrap:wrap;
-        align-items:flex-end;
-    ">
+    <div class="report-layout">
+
 
         <!-- LANGUAGE -->
         <form action="{% url 'set_language' %}" method="post" style="display:flex; flex-direction:column;">
@@ -57,63 +47,49 @@
         </form>
 
 
-        <!-- REPORT TYPE -->
-        <form method="get" style="display:flex; gap:15px; flex-wrap:wrap; align-items:flex-end;">
+      <form method="get" class="report-form">
 
-            <div style="display:flex; flex-direction:column;">
-                <label style="font-size:13px; color:#6b7280; margin-bottom:6px;">
-                    {% trans "Report Type" %}
-                </label>
-                <select name="report_type"
-                        onchange="this.form.submit()"
-                        style="min-width:160px; padding:10px 14px; border-radius:10px; border:1px solid #e5e7eb;">
-                    <option value="all" {% if report_type == 'all' %}selected{% endif %}>All Time</option>
-                    <option value="daily" {% if report_type == 'daily' %}selected{% endif %}>Daily</option>
-                    <option value="weekly" {% if report_type == 'weekly' %}selected{% endif %}>Weekly</option>
-                    <option value="monthly" {% if report_type == 'monthly' %}selected{% endif %}>Monthly</option>
-                    <option value="custom" {% if report_type == 'custom' %}selected{% endif %}>Custom</option>
-                </select>
-            </div>
+    <div class="report-group">
+        <label>{% trans "Report Type" %}</label>
+        <select name="report_type" onchange="this.form.submit()">
+            <option value="all" {% if report_type == 'all' %}selected{% endif %}>All Time</option>
+            <option value="daily" {% if report_type == 'daily' %}selected{% endif %}>Daily</option>
+            <option value="weekly" {% if report_type == 'weekly' %}selected{% endif %}>Weekly</option>
+            <option value="monthly" {% if report_type == 'monthly' %}selected{% endif %}>Monthly</option>
+            <option value="custom" {% if report_type == 'custom' %}selected{% endif %}>Custom</option>
+        </select>
+    </div>
 
-            {% if report_type == 'custom' %}
-            <div style="display:flex; gap:10px; align-items:flex-end;">
+    {% if report_type == 'custom' %}
+    <div class="custom-date-wrapper">
 
-                <div style="display:flex; flex-direction:column;">
-                    <label style="font-size:13px; color:#6b7280; margin-bottom:6px;">
-                        {% trans "From" %}
-                    </label>
-                    <input type="date"
-                           name="start_date"
-                           value="{{ start_date }}"
-                           style="padding:10px 14px; border-radius:10px; border:1px solid #e5e7eb;">
-                </div>
+        <div class="report-group">
+            <label>{% trans "From" %}</label>
+            <input type="text"
+                   name="start_date"
+                   placeholder="dd/mm/yyyy"
+                   value="{{ start_date }}"
+                   class="date-input">
+        </div>
 
-                <div style="display:flex; flex-direction:column;">
-                    <label style="font-size:13px; color:#6b7280; margin-bottom:6px;">
-                        {% trans "To" %}
-                    </label>
-                    <input type="date"
-                           name="end_date"
-                           value="{{ end_date }}"
-                           style="padding:10px 14px; border-radius:10px; border:1px solid #e5e7eb;">
-                </div>
+        <div class="report-group">
+            <label>{% trans "To" %}</label>
+            <input type="text"
+                   name="end_date"
+                   placeholder="dd/mm/yyyy"
+                   value="{{ end_date }}"
+                   class="date-input">
+        </div>
 
-                <button type="submit"
-                        style="
-                            padding:10px 18px;
-                            border-radius:10px;
-                            background:#111827;
-                            color:white;
-                            border:none;
-                            font-weight:500;
-                        ">
-                    Filter
-                </button>
+        <div class="report-group button-group">
+            <button type="submit">Filter</button>
+        </div>
 
-            </div>
-            {% endif %}
+    </div>
+    {% endif %}
 
-        </form>
+</form>
+
 
     </div>
 
@@ -218,6 +194,58 @@ new Chart(document.getElementById('expenseCategoryChart'), {
     },
     options: commonOptions
 });
+
+    <style>
+
+.report-form {
+    display: flex;
+    gap: 25px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.report-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.report-group label {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.report-group select,
+.date-input {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    min-width: 160px;
+}
+
+.custom-date-wrapper {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.button-group button {
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: #111827;
+    color: white;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.button-group button:hover {
+    opacity: 0.9;
+}
+
+</style>
+
 
 </script>
 
