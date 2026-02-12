@@ -2,30 +2,42 @@
 {% block title %}Incomes{% endblock %}
 
 {% block content %}
-<h2>Incomes</h2>
-<a href="{% url 'transaction_income_create' %}">Add Income</a>
-<table>
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Wallet</th>
-            <th>Category</th>
-            <th>Amount</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for income in incomes %}
-        <tr>
-            <td>{{ income.date }}</td>
-            <td>{{ income.wallet.name }}</td>
-            <td>{{ income.category.name }}</td>
-            <td>{{ income.amount }} {{ income.wallet.currency.code }}</td>
-            <td>{{ income.description|default:"-" }}</td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="5">No records yet.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div style="max-width:1100px; margin:40px auto; padding:20px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h2 style="color:#111827; font-weight:600;">Incomes</h2>
+        <a href="{% url 'transaction_income_create' %}" 
+           style="background-color:#2563eb; color:#fff; padding:8px 18px; border-radius:6px; text-decoration:none; font-weight:500; transition:0.2s;">
+           Add Income
+        </a>
+    </div>
+
+    <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#fff; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+            <thead style="background:#f3f4f6;">
+                <tr>
+                    <th style="padding:12px 15px; text-align:left; font-weight:500; color:#374151;">Date</th>
+                    <th style="padding:12px 15px; text-align:left; font-weight:500; color:#374151;">Wallet</th>
+                    <th style="padding:12px 15px; text-align:left; font-weight:500; color:#374151;">Category</th>
+                    <th style="padding:12px 15px; text-align:left; font-weight:500; color:#374151;">Amount</th>
+                    <th style="padding:12px 15px; text-align:left; font-weight:500; color:#374151;">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for income in incomes %}
+                <tr style="border-top:1px solid #e5e7eb;">
+                    <td style="padding:12px 15px;">{{ income.date }}</td>
+                    <td style="padding:12px 15px;">{{ income.wallet.name }}</td>
+                    <td style="padding:12px 15px;">{{ income.category.name }}</td>
+                    <td style="padding:12px 15px;">{{ income.amount }} {{ income.wallet.currency.code }}</td>
+                    <td style="padding:12px 15px;">{{ income.description|default:"-" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="padding:12px 15px; text-align:center; color:#6b7280;">No records yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
