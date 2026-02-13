@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import support_view, support_thankyou
+from .views import support_view, support_thankyou, support_messages_view
 
 urlpatterns = [
     path('', support_view, name='support'),
