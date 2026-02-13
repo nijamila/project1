@@ -1,1 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+<div style="max-width:500px; margin:60px auto; text-align:center;">
+    <h2>Thank you for contacting support!</h2>
+    <p>We will get back to you as soon as possible.</p>
+    <a href="{% url 'dashboard' %}" style="color:#3b82f6; font-weight:500;">Back to Dashboard</a>
+</div>
+{% endblock %}
 
