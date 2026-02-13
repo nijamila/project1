@@ -1,1 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Support{% endblock %}
+
+{% block content %}
+<div style="max-width:600px; margin:40px auto; padding:30px; background:#fff; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.08);">
+    <h2 style="margin-bottom:20px;">Contact Support</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="padding:10px 20px; background:#3b82f6; color:#fff; border:none; border-radius:6px; cursor:pointer;">Send</button>
+    </form>
+</div>
+{% endblock %}
 
