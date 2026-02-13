@@ -22,15 +22,16 @@ class SupportMessageAdmin(admin.ModelAdmin):
     short_message.short_description = 'Message'
 
 
-    def reply_status(self, obj):
-        if obj.reply:
-            return format_html('<span style="color:green;font-weight:bold;">Yes</span>')
-        return format_html('<span style="color:red;font-weight:bold;">No</span>')
+   def reply_status(self, obj):
+    if obj.reply:
+        return format_html('<span style="color:green;font-weight:bold;">{}</span>', 'Yes')
+    return format_html('<span style="color:red;font-weight:bold;">{}</span>', 'No')
     reply_status.short_description = 'Replied?'
     reply_status.admin_order_field = 'reply'
 
     def reply_preview(self, obj):
-        if obj.reply:
-            return (obj.reply[:50] + '...') if len(obj.reply) > 50 else obj.reply
-        return "-"
+    if obj.reply:
+        preview = (obj.reply[:50] + '...') if len(obj.reply) > 50 else obj.reply
+        return format_html("{}", preview)
+    return "-"
     reply_preview.short_description = 'Reply Preview'
