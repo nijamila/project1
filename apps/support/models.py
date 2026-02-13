@@ -11,4 +11,4 @@ class SupportMessage(models.Model):
     replied_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.created_at.strftime('%Y-%m-%d %H:%M')}"
+        return f"{self.user.phone} - {self.created_at.strftime('%Y-%m-%d %H:%M')}"
