@@ -5,7 +5,7 @@ from .models import SupportMessage
 @admin.register(SupportMessage)
 class SupportMessageAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_phone', 'short_message', 'created_at', 'replied_at', 'reply_status', 'reply_preview','reply')
-    list_editable = ()
+    list_editable = ('reply',)
     readonly_fields = ('user', 'created_at', 'replied_at')
     search_fields = ('user__phone', 'message', 'reply')
     list_filter = ('created_at', 'replied_at')
